@@ -2,13 +2,18 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const Asana = require('asana');
 
-const taskGid = '1182826486567385';
-
+const REGEX = /app\.asana\.com\/\d+\/\d+\/(\d+)/
 
 try {
-  const { number, pull_request: { _links, body } } = github.context.payload
+  const { number, pull_request: { _links, body } } = github.context.payload;
+  const match = body.match(REGEX);
 
-  console.log(body);
+  if (!match || !match[1]) {
+    console.log('No Asana URL found in PR comment');
+    return true;
+  }
+
+  const [, taskGid] = match;
   const PRUrl = _links.html.href;
   const accessToken = core.getInput('access-token') || process.env.ASANA_ACCESS_TOKEN;
   const client = Asana.Client.create().useAccessToken(accessToken);
@@ -17,7 +22,7 @@ try {
     is_pinned: true,
   };
 
-  client.stories.createStoryForTask(taskGid, data).then(console.log).catch(err => console.log(err.value.errors[0]));
+  client.stories.createStoryForTask(taskGid, data).catch(console.log);
 } catch (error) {
   console.log(error);
   core.setFailed(error);
