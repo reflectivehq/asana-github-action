@@ -1,0 +1,9 @@
+name: 'Asana Integration'
+description: 'Manage Asana tickets via Github Actions'
+inputs:
+  access-token:
+    description: 'Asana Personal Access Token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
