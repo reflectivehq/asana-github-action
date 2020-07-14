@@ -6,7 +6,7 @@ const taskGid = '1182826486567385';
 
 try {
   console.log(github);
-  const PRUrl = `https://github.com/${github.repository}/pull/${github.event.number}`;
+  const PRUrl = `https://github.com/${github.repository}/pull/${github.payload.number}`;
   const accessToken = core.getInput('access-token') || process.env.ASANA_ACCESS_TOKEN;
   const client = Asana.Client.create().useAccessToken(accessToken);
   const data = {
