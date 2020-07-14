@@ -10,6 +10,8 @@ try {
 
   if (!match || !match[1]) {
     console.log('No Asana URL found in PR comment');
+    console.log(body);
+    console.log(match);
     return true;
   }
 
