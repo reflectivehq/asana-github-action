@@ -5,10 +5,9 @@ const Asana = require('asana');
 const taskGid = '1182826486567385';
 
 try {
-  console.log(github);
   const payload = github.context.payload
-  console.log(payload.repository);
-  const PRUrl = `https://github.com/${github.repository}/pull/${payload.number}`;
+  console.log(payload.pull_request);
+  const PRUrl = `${payload.repository.html_url}/${payload.number}`;
   const accessToken = core.getInput('access-token') || process.env.ASANA_ACCESS_TOKEN;
   const client = Asana.Client.create().useAccessToken(accessToken);
   const data = {
