@@ -25,8 +25,8 @@ try {
   console.log(data);
 
   client.stories.createStoryForTask(taskGid, data).catch((err) => {
-    console.log(err);
-    throw err;
+    console.log(err.value.errors[0]);
+    core.setFailed(err.value.errors[0]);
   });
 } catch (error) {
   core.setFailed(error);
