@@ -16,11 +16,12 @@ try {
   }
 
   const [, taskGid] = match;
-  const PRUrl = _links.html.href;
   const accessToken = core.getInput('access-token') || process.env.ASANA_ACCESS_TOKEN;
   const client = Asana.Client.create().useAccessToken(accessToken);
+  const herokuUrl = `https://reflective-pr-${number}.herokuapp.com`;
+  const reflectiveDeepUrl = `reflective://switch-host?host=${herokuUrl}`;
   const data = {
-    html_text: `<body>Github PR: <a href="${PRUrl}">#${number}</a></body>`,
+    html_text: `<body>Github PR: <a href="${reflectiveDeepUrl}">Open Build for PR #${number} in the Reflective App</a></body>`,
     is_pinned: true,
   };
 
