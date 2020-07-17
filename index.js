@@ -22,7 +22,10 @@ try {
     is_pinned: true,
   };
 
+  console.log(data);
+
   client.stories.createStoryForTask(taskGid, data).catch((err) => {
+    console.log(err);
     throw err;
   });
 } catch (error) {
