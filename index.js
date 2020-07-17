@@ -2,17 +2,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const Asana = require('asana');
 
-const REGEX = /app\.asana\.com\/\d+\/\d+\/(\d+)/
+const REGEX = /app\.asana\.com\/\d+\/\d+\/(\d+)/;
 
 try {
-  const { number, pull_request: { _links, body } } = github.context.payload;
+  const { number, pull_request: { body } } = github.context.payload;
   const match = body.match(REGEX);
 
   if (!match || !match[1]) {
-    console.log('No Asana URL found in PR comment');
-    console.log(body);
-    console.log(match);
-    return true;
+    throw Error('No Asana URL found in PR comment');
   }
 
   const [, taskGid] = match;
@@ -25,8 +22,9 @@ try {
     is_pinned: true,
   };
 
-  client.stories.createStoryForTask(taskGid, data).catch(console.log);
+  client.stories.createStoryForTask(taskGid, data).catch((err) => {
+    throw err;
+  });
 } catch (error) {
-  console.log(error);
   core.setFailed(error);
 }
