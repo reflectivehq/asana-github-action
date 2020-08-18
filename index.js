@@ -4,7 +4,7 @@ const Asana = require('asana');
 
 const REGEX = /app\.asana\.com\/\d+\/\d+\/(\d+)/;
 const accessToken = core.getInput('access-token') || process.env.ASANA_ACCESS_TOKEN;
-const message = core.getInput('message');
+const comment = core.getInput('comment');
 const link = core.getInput('link');
 
 try {
@@ -18,7 +18,7 @@ try {
     const [, taskGid] = match;
     const client = Asana.Client.create().useAccessToken(accessToken);
     const data = {
-      html_text: `<body>Github PR #${number}: <a href="${link.replace(/%s/g, number)}">${message.replace(/%s/g, number)}</a></body>`,
+      html_text: `<body>Github PR #${number}: <a href="${link.replace(/%s/g, number)}">${comment.replace(/%s/g, number)}</a></body>`,
       is_pinned: true,
     };
 
