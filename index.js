@@ -17,8 +17,6 @@ try {
 
     const [, taskGid] = match;
     const client = Asana.Client.create().useAccessToken(accessToken);
-    // const herokuUrl = `https://reflective-pr-${number}.herokuapp.com`;
-    // const reflectiveDeepUrl = `https://link.reflective.co/switch-host?host=${herokuUrl}`;
     const data = {
       html_text: `<body>Github PR #${number}: <a href="${link}">${message}</a></body>`,
       is_pinned: true,
