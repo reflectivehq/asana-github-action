@@ -4,6 +4,12 @@ inputs:
   access-token:
     description: 'Asana Personal Access Token'
     required: true
+  comment:
+      description: 'Asana comment text'
+      required: true
+  link:
+    description: 'Link to be posted'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'
