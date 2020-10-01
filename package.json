@@ -6,7 +6,7 @@
   "author": "Reflective Co.",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "asana": "^0.18.4"
   },
